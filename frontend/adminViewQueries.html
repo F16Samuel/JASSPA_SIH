@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Queries - Admin</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1Yy6koZppv297o3aG3MtcKwvbQpGVkreCPg&s" alt="MUJ Logo" class="logo">
+        <div class="container">
+            <h1>View Queries</h1>
+            <nav>
+                <ul>
+                    <li><a href="adminAddAlumni.html">Add Alumni</a></li>
+                    <li><a href="adminAddEvent.html">Add Event</a></li>
+                    <li><a href="adminViewQueries.html">View Queries</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="view-queries" class="content-section">
+        <div class="container">
+            <h2>Submitted Queries</h2>
+            <!-- Search Form -->
+            <div class="search-form">
+                <input type="text" id="searchInput" placeholder="Search by name, email, or subject..." onkeyup="filterQueries()">
+            </div>
+
+            <!-- Button to Load Queries -->
+            <button id="load-queries">Load Queries</button>
+            
+            <!-- Queries Table -->
+            <table id="queries-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Subject</th>
+                        <th>Message</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Queries will be loaded here -->
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Manipal University Jaipur. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Function to fetch all queries from the backend
+        document.getElementById('load-queries').addEventListener('click', async () => {
+            try {
+                const response = await fetch('/api/queries/get-queries');
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const queries = await response.json();
+                const queriesTableBody = document.querySelector('#queries-table tbody');
+
+                // Populate table with queries
+                queriesTableBody.innerHTML = queries.map(query => `
+                    <tr>
+                        <td>${query.Query_ID}</td>
+                        <td>${query.Query_senderName}</td>
+                        <td>${query.Query_senderMail}</td>
+                        <td>${query.Query_Subj}</td>
+                        <td>${query.Query_Msg}</td>
+                    </tr>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading queries:', error);
+                alert('Error loading queries.');
+            }
+        });
+
+        // Function to filter queries based on search input
+        function filterQueries() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const rows = document.querySelectorAll('#queries-table tbody tr');
+
+            rows.forEach(row => {
+                const name = row.cells[1].textContent.toLowerCase();
+                const email = row.cells[2].textContent.toLowerCase();
+                const subject = row.cells[3].textContent.toLowerCase();
+
+                if (name.includes(input) || email.includes(input) || subject.includes(input)) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        }
+    </script>
+</body>
+</html>

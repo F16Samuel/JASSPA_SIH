@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Event - Admin</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1Yy6koZppv297o3aG3MtcKwvbQpGVkreCPg&s" alt="MUJ Logo" class="logo">
+        <div class="container">
+            <h1>Add Event</h1>
+            <nav>
+                <ul>
+                    <li><a href="adminAddAlumni.html">Add Alumni</a></li>
+                    <li><a href="adminAddEvent.html">Add Event</a></li>
+                    <li><a href="adminViewQueries.html">View Queries</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="add-event" class="content-section">
+        <div class="container">
+            <h2>Add New Event</h2>
+            <form id="add-event-form">
+                <label for="event-id">ID:</label>
+                <input type="text" id="event-id" name="event-id" required>
+                <label for="event-name">Name:</label>
+                <input type="text" id="event-name" name="event-name" required>
+                <label for="event-date">Date:</label>
+                <input type="date" id="event-date" name="event-date" required>
+                <label for="event-venue">Venue:</label>
+                <input type="text" id="event-venue" name="event-venue" required>
+                <label for="event-summary">Summary:</label>
+                <textarea id="event-summary" name="event-summary" required></textarea>
+                <button type="submit">Add Event</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Manipal University Jaipur. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('add-event-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(e.target);
+            const data = {
+                Event_ID: formData.get('event-id'),
+                Event_Name: formData.get('event-name'),
+                Event_Date: formData.get('event-date'),
+                Event_Venue: formData.get('event-venue'),
+                Event_Summary: formData.get('event-summary')
+            };
+
+            try {
+                const response = await fetch('/api/events/add-event', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                if (response.ok) {
+                    alert('Event added successfully!');
+                    e.target.reset();
+                } else {
+                    const error = await response.json();
+                    console.error('Error adding event:', error);
+                    alert('Error adding event.');
+                }
+            } catch (error) {
+                console.error('Error adding event:', error);
+                alert('Error adding event.');
+            }
+        });
+    </script>
+</body>
+</html>

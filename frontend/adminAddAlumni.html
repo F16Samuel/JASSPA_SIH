@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Alumni - Admin</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1Yy6koZppv297o3aG3MtcKwvbQpGVkreCPg&s" alt="MUJ Logo" class="logo">
+        <div class="container">
+            <h1>Add Alumni</h1>
+            <nav>
+                <ul>
+                    <li><a href="adminAddAlumni.html">Add Alumni</a></li>
+                    <li><a href="adminAddEvent.html">Add Event</a></li>
+                    <li><a href="adminViewQueries.html">View Queries</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="add-alumni" class="content-section">
+        <div class="container">
+            <h2>Add New Alumni</h2>
+            <form id="add-alumni-form">
+                <label for="alumni-id">ID:</label>
+                <input type="text" id="alumni-id" name="alumni-id" required>
+                <label for="alumni-name">Name:</label>
+                <input type="text" id="alumni-name" name="alumni-name" required>
+                <label for="alumni-batch">Batch:</label>
+                <input type="text" id="alumni-batch" name="alumni-batch" required>
+                <label for="alumni-dep">Department:</label>
+                <input type="text" id="alumni-dep" name="alumni-dep" required>
+                <label for="current-position">Current Position:</label> <!-- New field -->
+                <input type="text" id="current-position" name="current-position" required> <!-- New input -->
+                <button type="submit">Add Alumni</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Manipal University Jaipur. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('add-alumni-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(e.target);
+            const data = {
+                Alum_ID: formData.get('alumni-id'),
+                Alum_Name: formData.get('alumni-name'),
+                Alum_Batch: formData.get('alumni-batch'),
+                Alum_Dep: formData.get('alumni-dep'),
+                Current_Position: formData.get('current-position') // New line
+            };
+
+            try {
+                const response = await fetch('/api/alumni/add-alumni', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                if (response.ok) {
+                    alert('Alumni added successfully!');
+                    e.target.reset();
+                } else {
+                    const error = await response.json();
+                    console.error('Error adding alumni:', error);
+                    alert('Error adding alumni.');
+                }
+            } catch (error) {
+                console.error('Error adding alumni:', error);
+                alert('Error adding alumni.');
+            }
+        });
+    </script>
+</body>
+</html>

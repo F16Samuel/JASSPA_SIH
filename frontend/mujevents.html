@@ -1,0 +1,214 @@
+<!-- mujevents.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events - MUJ Alumni & Students</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1Yy6koZppv297o3aG3MtcKwvbQpGVkreCPg&s" alt="MUJ Logo" class="logo">
+        <div class="container">
+            <h1>MUJ EVENTS</h1>
+            <nav>
+                <ul>
+                    <li><a href="muj.html">Home</a></li>
+                    <li><a href="mujabout.html">About Us</a></li>
+                    <li><a href="mujevents.html">Events</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="mujlearn.html">Learn More</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="events" class="content-section">
+        <div class="container">
+            <h2>Upcoming Events at MUJ</h2>
+            <p>Here are some of the exciting events happening at Manipal University Jaipur. Stay updated with the latest happenings and join us for memorable experiences!</p>
+            
+            <!-- Search Form -->
+            <div class="search-form">
+                <input type="text" id="searchInput" placeholder="Search by event name, date, or venue..." onkeyup="filterEvents()">
+            </div>
+
+            <!-- Events List -->
+            <div class="event-cards" id="eventList"></div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Manipal University Jaipur. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Function to fetch all events and populate the list
+        async function fetchEvents() {
+            try {
+                const response = await fetch('/api/events/all');
+                const events = await response.json();
+                const eventList = document.getElementById('eventList');
+
+                eventList.innerHTML = ''; // Clear existing data
+
+                events.forEach(event => {
+                    const eventItem = document.createElement('div');
+                    eventItem.className = 'event-item';
+                    eventItem.dataset.name = event.Event_Name.toLowerCase();
+                    eventItem.dataset.date = new Date(event.Event_Date).toLocaleDateString('en-US').toLowerCase();
+                    eventItem.dataset.venue = event.Event_Venue.toLowerCase();
+
+                    eventItem.innerHTML = `
+                        <h3>${event.Event_Name}</h3>
+                        <p><strong>Date:</strong> ${new Date(event.Event_Date).toLocaleDateString('en-US')}</p>
+                        <p><strong>Venue:</strong> ${event.Event_Venue}</p>
+                        <p>${event.Event_Summary}</p>
+                    `;
+                    
+                    eventList.appendChild(eventItem);
+                });
+            } catch (error) {
+                console.error('Error fetching events data:', error);
+            }
+        }
+
+        // Function to filter events list based on search input
+        function filterEvents() {
+            let input = document.getElementById('searchInput');
+            let filter = input.value.toLowerCase();
+            let eventItems = document.getElementsByClassName('event-item');
+
+            for (let i = 0; i < eventItems.length; i++) {
+                let name = eventItems[i].getAttribute('data-name').toLowerCase();
+                let date = eventItems[i].getAttribute('data-date').toLowerCase();
+                let venue = eventItems[i].getAttribute('data-venue').toLowerCase();
+
+                if (name.includes(filter) || date.includes(filter) || venue.includes(filter)) {
+                    eventItems[i].style.display = "";
+                } else {
+                    eventItems[i].style.display = "none";
+                }
+            }
+        }
+
+        // Fetch all events data when page loads
+        document.addEventListener('DOMContentLoaded', fetchEvents);
+    </script>
+</body>
+</html>
+<style>
+    /* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.logo {
+    width: 300px;
+    margin-left: 10px;
+    height: 100px;
+}
+
+/* Header Styles */
+header {
+    background-color: #003366;
+    color: white;
+    padding: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header h1 {
+    margin-left: 20px;
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+    margin-right: 20px;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Content Section */
+.content-section {
+    background-color: #fff;
+    padding: 60px 0;
+    text-align: center;
+}
+
+.content-section h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.content-section p {
+    font-size: 16px;
+    margin-bottom: 30px;
+}
+
+.event-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.event-item {
+    background-color: #e9ecef;
+    border-radius: 10px;
+    padding: 20px;
+    width: 48%;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.event-item h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #003366;
+}
+
+.event-item p {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+/* Footer */
+footer {
+    background-color: #003366;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+}
+
+</style>
