@@ -82,3 +82,156 @@
     </script>
 </body>
 </html>
+<style>
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+}
+
+.container {
+    width: 80%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+h1, h2 {
+    color: #2c3e50;
+}
+
+/* Header Styles */
+header {
+    background-color: #2980b9;
+    padding: 20px 0;
+}
+
+.logo {
+    width: 200px;
+    height:80px;
+    float: left;
+}
+
+header h1 {
+    display: inline-block;
+    color: #fff;
+    font-size: 24px;
+    margin-left: 20px;
+    line-height: 80px;
+}
+
+nav {
+    float: right;
+    margin-top: 20px;
+}
+
+nav ul {
+    list-style-type: none;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Content Section */
+.content-section {
+    padding: 40px 0;
+}
+
+#add-event-form {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+#add-event-form label {
+    display: block;
+    font-weight: bold;
+    margin: 10px 0 5px;
+}
+
+#add-event-form input, #add-event-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+#add-event-form textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+#add-event-form button {
+    background-color: #2980b9;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+#add-event-form button:hover {
+    background-color: #3498db;
+}
+
+/* Footer Styles */
+footer {
+    background-color: #2c3e50;
+    padding: 20px 0;
+    text-align: center;
+    color: white;
+    margin-top: 40px;
+}
+
+footer p {
+    margin: 0;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    nav ul li {
+        display: block;
+        text-align: center;
+        margin: 10px 0;
+    }
+
+    header h1 {
+        display: block;
+        text-align: center;
+        margin-left: 0;
+        line-height: normal;
+    }
+
+    .logo {
+        float: none;
+        display: block;
+        margin: 0 auto;
+    }
+
+    nav {
+        float: none;
+    }
+}
+</style>

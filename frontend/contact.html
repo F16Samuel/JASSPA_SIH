@@ -76,7 +76,6 @@
     </script>
 </body>
 </html>
-
 <style>
     /* General Styles */
 * {
@@ -138,58 +137,66 @@ nav ul li a:hover {
 
 /* Contact Section */
 .content-section {
-    background-color: #fff;
     padding: 40px 0;
+    background-color: white;
+}
+
+h2 {
     text-align: center;
-}
-
-.content-section h2 {
-    font-size: 28px;
+    color: #003865;
+    font-size: 2.2em;
     margin-bottom: 20px;
 }
 
-.content-section p {
-    font-size: 16px;
-    margin-bottom: 20px;
-}
-
-.contact-form {
+form {
     max-width: 600px;
     margin: 0 auto;
-    text-align: left;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.contact-form label {
+label {
     display: block;
-    margin-bottom: 8px;
-    font-size: 16px;
-    font-weight: bold;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    color: #003865;
 }
 
-.contact-form input,
-.contact-form textarea {
+input[type="text"],
+input[type="email"],
+textarea {
     width: 100%;
     padding: 10px;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 1em;
+    box-sizing: border-box;
 }
 
-.cta-button {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #ff9900;
+textarea {
+    height: 150px;
+    resize: vertical;
+}
+
+button {
+    display: block;
+    width: 100%;
+    background-color: #003865;
     color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    font-size: 16px;
+    padding: 15px;
     border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-.cta-button:hover {
-    background-color: #e68a00;
+button:hover {
+    background-color: #ffcc00;
+    color: #003865;
 }
 
 /* Footer Styles */
